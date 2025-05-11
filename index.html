@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Surprise for Ashi</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: pink; /* Changed from red to pink */
+      overflow: hidden;
+      color: black;
+    }
+
+    /* Repeated Text Background */
+    .bg-text {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+      grid-auto-rows: 40px;
+      gap: 10px;
+      padding: 20px;
+    }
+
+    .bg-text span {
+      font-size: 16px;
+      color: black; /* Ensure black text */
+      font-weight: bold; /* Make text bold */
+      opacity: 0.2;
+      user-select: none;
+      text-align: center;
+      align-self: center;
+      justify-self: center;
+    }
+
+    .center-box {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      padding: 30px 40px;
+      border-radius: 20px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      z-index: 2;
+      text-align: center;
+    }
+
+    .btn {
+      background-color: #ff4d6d;
+      color: white;
+      padding: 12px 20px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      cursor: pointer;
+      margin: 10px;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #e60039;
+    }
+
+    .hearts {
+      position: fixed;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .heart {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      transform: rotate(45deg);
+      animation: fall 3s linear forwards;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: red;
+      border-radius: 50%;
+    }
+
+    .heart::before {
+      top: -10px;
+      left: 0;
+    }
+
+    .heart::after {
+      left: -10px;
+      top: 0;
+    }
+
+    @keyframes fall {
+      0% { top: -10%; opacity: 1; }
+      100% { top: 110%; opacity: 0; }
+    }
+
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+
+  <!-- Background Text -->
+  <div class="bg-text" id="bgTextContainer"></div>
+
+  <!-- Start Button -->
+  <div class="center-box" id="startBox">
+    <h2>Click Here</h2>
+    <button class="btn" onclick="startRain()">My Lady</button>
+  </div>
+
+  <!-- Question Box -->
+  <div class="center-box hidden" id="questionBox">
+    <h2>Will you be mine forever?</h2>
+    <button class="btn" onclick="showAnswer()">Yes</button>
+    <button class="btn" onclick="showAnswer()">No</button>
+  </div>
+
+  <!-- Final Message -->
+  <div class="center-box hidden" id="finalBox">
+    <h2>Thank you my cutoo patooti ❤️<br>My love, my everything.<br><br> Aur agar no bhi click kia toh phir bhi meri hi rhygi smjh ayi 😘</h2>
+  </div>
+
+  <!-- Heart Rain -->
+  <div class="hearts" id="heartsContainer"></div>
+
+  <script>
+    // Generate lots of spans to cover the entire background
+    const bgContainer = document.getElementById('bgTextContainer');
+    const totalSpans = 300; // Adjust this number if needed
+    for (let i = 0; i < totalSpans; i++) {
+      const span = document.createElement('span');
+      span.textContent = 'I love you Ashi';
+      bgContainer.appendChild(span);
+    }
+
+    function startRain() {
+      document.getElementById('startBox').classList.add('hidden');
+      for (let i = 0; i < 50; i++) {
+        const heart = document.createElement('div');
+        heart.classList.add('heart');
+        heart.style.left = Math.random() * 100 + 'vw';
+        heart.style.animationDelay = Math.random() * 3 + 's';
+        document.getElementById('heartsContainer').appendChild(heart);
+      }
+      setTimeout(() => {
+        document.getElementById('questionBox').classList.remove('hidden');
+        document.getElementById('heartsContainer').innerHTML = '';
+      }, 3000);
+    }
+
+    function showAnswer() {
+      document.getElementById('questionBox').classList.add('hidden');
+      document.getElementById('finalBox').classList.remove('hidden');
+    }
+  </script>
+
+</body>
+</html>
